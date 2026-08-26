@@ -454,14 +454,20 @@ Obrigado por existir.</p>
       var ws = document.createElement('script');
       ws.src = 'willow.js';
       ws.onload = function(){
+        var cena=document.getElementById('robo-cena');
         function tentarAparecer(){
-          if(typeof aparecerRobo==='function'){
-            try{ aparecerRobo(); }catch(e){ console.log('aparecerRobo error:',e); }
+          if(typeof aparecerRobo==='function' && cena){
+            try{
+              cena.style.opacity='1';
+              cena.style.visibility='visible';
+              cena.style.pointerEvents='auto';
+              aparecerRobo();
+            }catch(e){ console.log('aparecerRobo error:',e); }
           } else {
             setTimeout(tentarAparecer, 200);
           }
         }
-        setTimeout(tentarAparecer, 800);
+        setTimeout(tentarAparecer, 1000);
       };
       ws.onerror = function(){ console.log('willow.js failed to load'); };
       document.body.appendChild(ws);
