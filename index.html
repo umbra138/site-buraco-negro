@@ -448,30 +448,18 @@ Obrigado por existir.</p>
   draw();
   </script>
 
-  <!-- Willow.js carrega por ultimo via JS -->
+  <!-- Willow.js -->
+  <script src="willow.js"></script>
   <script>
-    (function(){
-      var ws = document.createElement('script');
-      ws.src = 'willow.js';
-      ws.onload = function(){
+    setTimeout(function(){
+      try {
+        document.body.classList.add('robo-open');
         var cena=document.getElementById('robo-cena');
-        function tentarAparecer(){
-          if(typeof aparecerRobo==='function' && cena){
-            try{
-              cena.style.opacity='1';
-              cena.style.visibility='visible';
-              cena.style.pointerEvents='auto';
-              aparecerRobo();
-            }catch(e){ console.log('aparecerRobo error:',e); }
-          } else {
-            setTimeout(tentarAparecer, 200);
-          }
-        }
-        setTimeout(tentarAparecer, 1000);
-      };
-      ws.onerror = function(){ console.log('willow.js failed to load'); };
-      document.body.appendChild(ws);
-    })();
+        if(cena){ cena.classList.add('is-ativa'); cena.setAttribute('aria-hidden','false'); }
+        var faces=document.getElementById('robo-faces');
+        if(faces) faces.setAttribute('aria-hidden','false');
+      } catch(e){ console.log('willow error:',e); }
+    }, 1500);
   </script>
 </body>
 </html>
